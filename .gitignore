@@ -1,0 +1,8 @@
+target/
+test-output/
+test_data/
+src/main/resources/toUpload/
+src/main/resources/drivers/
+.settings/
+.project
+.classpath

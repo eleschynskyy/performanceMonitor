@@ -1,0 +1,5 @@
+environments:
+
+ test:
+  protocol: https
+  host: mac-pp.metro-group.com
