@@ -222,23 +222,7 @@ public class PerformanceMonitor extends BaseTest {
 				+ " assets): "
 				+ (endTime - startTime - searchResultPage.getForcedWait() * SearchResultPage.WAIT_FOR_SEARCH_TO_START)
 				+ "ms");
-		searchResultPage.downloadSelectedAssets();
-	}
-
-	@Test(dataProvider = "provideDataPackage", dataProviderClass = CsvDataProvider.class, enabled = true, invocationCount = 1, threadPoolSize = 1, dependsOnMethods = {
-			"freeTextAndFacetedSearch" })
-	public void checkDurationOfDownloadJobSearch(DataPackage dataPackage) {
-		LoginPage loginPage = new LoginPage(DriverMaster.getDriverInstance(), "Login page");
-		long startTime = System.currentTimeMillis();
-		HomePage homePage = loginPage.loginAs(dataPackage);
-		long endTime = System.currentTimeMillis();
-		TestStepReporter.reportln(">" + loginPage.getDescription() + " logging in: " + (endTime - startTime) + "ms");
-		AssetsPage assetsPage = homePage.navigateToAssetsPage();
-		JobsPage jobsPage = assetsPage.navigateToJobsPage();
-		if (jobsPage.jobsProcessed()) {
-			TestStepReporter.reportln(">" + jobsPage.getDescription() + " download job duration (" + assetsToDownload
-					+ " assets): " + jobsPage.getJobDuration(dataPackage.getUsername(), assetsToDownload) + "ms");
-		}
+		// searchResultPage.downloadSelectedAssets();
 	}
 
 }
