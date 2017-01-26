@@ -8,10 +8,18 @@ import java.net.MalformedURLException;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 public abstract class BaseTest {
+	
+	/*
+	@BeforeSuite
+	public void getDriver(){
+		
+	}
+	*/
 
 	@BeforeMethod(alwaysRun = true)
 	@Parameters({ "platform", "browser", "version", "environment" })

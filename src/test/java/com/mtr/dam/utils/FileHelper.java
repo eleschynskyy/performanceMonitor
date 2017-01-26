@@ -55,11 +55,11 @@ public class FileHelper {
 	public static String getGeneratedFilePrefix() {
 		return generatedFilePrefix;
 	}
-	
+
 	public static String getFileSuffix() {
 		return fileSuffix;
 	}
-	
+
 	public static long getFileSize() {
 		return fileSizeKB;
 	}

@@ -20,10 +20,11 @@ import com.mtr.dam.core.web.pages.UploadFilesPage;
 import com.mtr.dam.core.web.pages.UploadedFilesPage;
 import com.mtr.dam.data.objects.DataPackage;
 import com.mtr.dam.utils.FileHelper;
+import com.mtr.dam.utils.S3Loader;
 import com.mtr.dam.utils.TestStepReporter;
 import com.mtr.dam.utils.TimeModifier;
 
-public class PerformanceMonitor extends BaseTest {
+public class PerformanceMonitorTest extends BaseTest {
 
 	private int assetsToDownload = 15;
 
@@ -169,7 +170,7 @@ public class PerformanceMonitor extends BaseTest {
 		}
 	}
 
-	@Test(dataProvider = "provideDataPackage", dataProviderClass = CsvDataProvider.class, enabled = true, invocationCount = 1, threadPoolSize = 1)
+	@Test(dataProvider = "provideDataPackage", dataProviderClass = CsvDataProvider.class, enabled = false, invocationCount = 1, threadPoolSize = 1)
 	public void freeTextAndFacetedSearch(DataPackage dataPackage) {
 		LoginPage loginPage = new LoginPage(DriverMaster.getDriverInstance(), "Login page");
 		long startTime = System.currentTimeMillis();
@@ -223,6 +224,12 @@ public class PerformanceMonitor extends BaseTest {
 				+ (endTime - startTime - searchResultPage.getForcedWait() * SearchResultPage.WAIT_FOR_SEARCH_TO_START)
 				+ "ms");
 		// searchResultPage.downloadSelectedAssets();
+	}
+	
+	@Test(dataProvider = "provideDataPackage", dataProviderClass = CsvDataProvider.class, enabled = true, invocationCount = 1, threadPoolSize = 1)
+	public void download(DataPackage dataPackage) {
+		S3Loader loader = S3Loader.getInstance();
+		System.out.println("loader.download()=" + loader.download());
 	}
 
 }
