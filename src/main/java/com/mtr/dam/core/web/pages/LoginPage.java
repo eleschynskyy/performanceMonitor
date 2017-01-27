@@ -9,6 +9,8 @@ import com.mtr.dam.core.web.WebPage;
 import com.mtr.dam.core.web.elements.Button;
 import com.mtr.dam.core.web.elements.TextInput;
 import com.mtr.dam.data.objects.DataPackage;
+import com.mtr.dam.data.objects.User;
+import com.mtr.dam.data.objects.UserAndAssetsToDownload;
 
 public class LoginPage extends WebPage<LoginPage> {
 
@@ -36,6 +38,16 @@ public class LoginPage extends WebPage<LoginPage> {
 		fillFormAndClick(dataPackage);
 		return new HomePage(driver, "Home page").waitUntilAvailable();
 	}
+	
+	public HomePage loginAs(User user) {
+		fillFormAndClick(user);
+		return new HomePage(driver, "Home page").waitUntilAvailable();
+	}
+	
+	public HomePage loginAs(UserAndAssetsToDownload userAndAssetsToDownload) {
+		fillFormAndClick(userAndAssetsToDownload);
+		return new HomePage(driver, "Home page").waitUntilAvailable();
+	}
 
 	private TextInput getUsernameInput() {
 		return new TextInput(driver, By.id("AdamLogin_UserName"), "User name");
@@ -52,6 +64,18 @@ public class LoginPage extends WebPage<LoginPage> {
 	private void fillFormAndClick(DataPackage dataPackage) {
 		getUsernameInput().inputText(dataPackage.getUsername());
 		getPasswordInput().inputText(dataPackage.getPassword());
+		getLoginButton().click();
+	}
+	
+	private void fillFormAndClick(User user) {
+		getUsernameInput().inputText(user.getUsername());
+		getPasswordInput().inputText(user.getPassword());
+		getLoginButton().click();
+	}
+	
+	private void fillFormAndClick(UserAndAssetsToDownload userAndAssetsToDownload) {
+		getUsernameInput().inputText(userAndAssetsToDownload.getUsername());
+		getPasswordInput().inputText(userAndAssetsToDownload.getPassword());
 		getLoginButton().click();
 	}
 

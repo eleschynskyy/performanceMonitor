@@ -22,7 +22,7 @@ public class BrowsePage extends WebPage<BrowsePage> {
 	private static final int DEFAULT_TIMEOUT = 3600000;
 	private static final int DEFAULT_RETRY_DELAY = 500;
 	public static final int WAIT_FOR_SEARCH_TO_START = 3000;
-	public static final int WAIT_TIME_TO_CONTINUE_WORKING = 3000;
+	public static final int WAIT_TIME_TO_CONTINUE_WORKING = 15000;
 	private int forcedWait = 0;
 
 	private static final String PAGE_URL = HOST + "/Assets/Records/Browse";

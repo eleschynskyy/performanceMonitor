@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="MTR DAM Performance Monitor Tests" verbose="1">
+	<test name="Win/Chrome">
+		<parameter name="platform" value="WIN" />
+		<parameter name="browser" value="chrome" />
+		<parameter name="version" value="" />
+		<parameter name="environment" value="test" />
+		<classes>
+			<class name="com.mtr.dam.tests.UploadProductAssetsTest" />
+			<class name="com.mtr.dam.tests.UploadAndTagMarketingAssetsTest" />
+			<class name="com.mtr.dam.tests.FreeTextAndFacetedSearchTest" />
+			<class name="com.mtr.dam.tests.RefineSearchResultsOnBrowsePageTest" />
+		</classes>
+	</test>
+</suite>

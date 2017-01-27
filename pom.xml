@@ -55,7 +55,7 @@
 				<version>2.16</version>
 				<configuration>
 					<suiteXmlFiles>
-						<suiteXmlFile>src/test/resources/basicTest.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/run.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>

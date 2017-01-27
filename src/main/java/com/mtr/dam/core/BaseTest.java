@@ -17,7 +17,7 @@ import com.mtr.dam.utils.TestStepReporter;
 
 public abstract class BaseTest {
 	
-//	@BeforeSuite
+	@BeforeSuite
 	public void getData(){
 		S3Loader loader = S3Loader.getInstance();
 		long startTime = System.currentTimeMillis();
