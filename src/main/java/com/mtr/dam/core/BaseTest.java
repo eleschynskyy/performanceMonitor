@@ -12,14 +12,20 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import com.mtr.dam.utils.S3Loader;
+import com.mtr.dam.utils.TestStepReporter;
+
 public abstract class BaseTest {
 	
-	/*
 	@BeforeSuite
-	public void getDriver(){
-		
+	public void getData(){
+		S3Loader loader = S3Loader.getInstance();
+		long startTime = System.currentTimeMillis();
+		loader.download("data/", "data");
+		loader.download("drivers/", "drivers");
+		long endTime = System.currentTimeMillis();
+		TestStepReporter.reportln(">Getting data from S3: " + (endTime - startTime) + "ms");
 	}
-	*/
 
 	@BeforeMethod(alwaysRun = true)
 	@Parameters({ "platform", "browser", "version", "environment" })

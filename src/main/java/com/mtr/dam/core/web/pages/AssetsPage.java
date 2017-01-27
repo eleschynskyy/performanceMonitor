@@ -32,7 +32,7 @@ public class AssetsPage extends WebPage<AssetsPage> {
 	}
 
 	public ProductUploadPage openUploadProductFilesDialogWindow() {
-		// setWindowHandle();
+		setWindowHandle();
 		Set<String> oldWindowsSet = driver.getWindowHandles();
 		Actions action = new Actions(driver);
 		action.moveToElement(getRootMenu().asWebElement()).click().build().perform();
@@ -47,9 +47,9 @@ public class AssetsPage extends WebPage<AssetsPage> {
 		return productUploadPage;
 	}
 
-	// private void setWindowHandle() {
-	// this.windowHandle = driver.getWindowHandle();
-	// }
+	private void setWindowHandle() {
+		this.windowHandle = driver.getWindowHandle();
+	}
 
 	private CustomElement getUploadProductFilesMenu() {
 		return new CustomElement(driver, By.xpath("//div[contains(text(), 'Upload product files ...')]"),

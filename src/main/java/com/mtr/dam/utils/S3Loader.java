@@ -34,9 +34,9 @@ public class S3Loader {
 		return instance;
 	}
 
-	public int download() {
+	public int download(String prefix, String targetLocation) {
 		ListObjectsRequest s3Request = new ListObjectsRequest().withBucketName(awsBucket);
-		s3Request.withPrefix("esl");
+		s3Request.withPrefix(prefix);
 		s3Request.setMaxKeys(30000);
 		int size = 0, amount = 0;
 		do {
@@ -46,9 +46,11 @@ public class S3Loader {
 //			System.out.println("Quantity of loaded files = " + amount);
 			for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
 				String key = objectSummary.getKey();
+				if (key.equals(prefix)) continue;
 				GetObjectRequest getRequest = new GetObjectRequest(awsBucket, key);
 				S3Object object = amazonS3.getObject(getRequest);
-				saveFile(object.getObjectContent(), key);
+				if (key.startsWith(prefix)) key = key.substring(prefix.length());
+				saveFile(object.getObjectContent(), key, targetLocation);
 			}
 			String nextMarker = objectListing.getNextMarker();
 			if (nextMarker != null) {
@@ -60,8 +62,9 @@ public class S3Loader {
 		return amount;
 	}
 
-	private void saveFile(InputStream is, String name) {
-		String s = "src/main/resources/toUpload/s3/" + name;
+	private void saveFile(InputStream is, String name, String targetLocation) {
+//		String s = "src/main/resources/" + "toUpload/" + targetLocation + "/" + name;
+		String s = "src/main/resources/" + targetLocation + "/" + name;
 		File f = new File(s);
 		BufferedOutputStream fOut = null;
 		try {

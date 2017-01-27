@@ -20,7 +20,6 @@ import com.mtr.dam.core.web.pages.UploadFilesPage;
 import com.mtr.dam.core.web.pages.UploadedFilesPage;
 import com.mtr.dam.data.objects.DataPackage;
 import com.mtr.dam.utils.FileHelper;
-import com.mtr.dam.utils.S3Loader;
 import com.mtr.dam.utils.TestStepReporter;
 import com.mtr.dam.utils.TimeModifier;
 
@@ -216,20 +215,21 @@ public class PerformanceMonitorTest extends BaseTest {
 		searchResultPage.resetForcedWait();
 		// select all found assets
 		startTime = System.currentTimeMillis();
-		// int selectedAssetsCount = searchResultPage.selectAllAssets();
-		searchResultPage.selectAssets(assetsToDownload);
+		int selectedAssetsCount = searchResultPage.selectAllAssets();
+		// searchResultPage.selectAssets(assetsToDownload);
 		endTime = System.currentTimeMillis();
-		TestStepReporter.reportln(">" + searchResultPage.getDescription() + " select (" + assetsToDownload
+		TestStepReporter.reportln(">" + searchResultPage.getDescription() + " select (" + selectedAssetsCount
 				+ " assets): "
 				+ (endTime - startTime - searchResultPage.getForcedWait() * SearchResultPage.WAIT_FOR_SEARCH_TO_START)
 				+ "ms");
 		// searchResultPage.downloadSelectedAssets();
 	}
-	
+
 	@Test(dataProvider = "provideDataPackage", dataProviderClass = CsvDataProvider.class, enabled = true, invocationCount = 1, threadPoolSize = 1)
 	public void download(DataPackage dataPackage) {
-		S3Loader loader = S3Loader.getInstance();
-		System.out.println("loader.download()=" + loader.download());
+		// S3Loader loader = S3Loader.getInstance();
+		// System.out.println("loader.download()=" + loader.download());
+		System.out.println("Done");
 	}
 
 }

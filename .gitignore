@@ -2,7 +2,9 @@ target/
 test-output/
 test_data/
 src/main/resources/toUpload/
+src/main/resources/driversLocal/
 src/main/resources/drivers/
+src/main/resources/data/
 .settings/
 .project
 .classpath

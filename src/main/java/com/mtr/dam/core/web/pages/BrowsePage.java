@@ -22,6 +22,7 @@ public class BrowsePage extends WebPage<BrowsePage> {
 	private static final int DEFAULT_TIMEOUT = 3600000;
 	private static final int DEFAULT_RETRY_DELAY = 500;
 	public static final int WAIT_FOR_SEARCH_TO_START = 3000;
+	public static final int WAIT_TIME_TO_CONTINUE_WORKING = 3000;
 	private int forcedWait = 0;
 
 	private static final String PAGE_URL = HOST + "/Assets/Records/Browse";
@@ -177,11 +178,11 @@ public class BrowsePage extends WebPage<BrowsePage> {
 				}
 				timePassed = timePassed + delay();
 			}
-			if (!getResultsBox().isAvailable()
-					|| !searchCompleted()/*
-										 * || !resultsRefreshedAgainstPrevious(
-										 * currentResultsNumber)
-										 */) {
+			if (!getResultsBox().isAvailable() || !searchCompleted()/*
+																	 * ||
+																	 * !resultsRefreshedAgainstPrevious(
+																	 * currentResultsNumber)
+																	 */) {
 				return false;
 			}
 		}
@@ -306,12 +307,14 @@ public class BrowsePage extends WebPage<BrowsePage> {
 		getShowMoreLink().click();
 		int timePassed = 0;
 		while (timePassed < DEFAULT_TIMEOUT) {
-			if (getOptionFromFilterPanel(filter).isAvailable() && getOptionFromFilterPanel(filter).asWebElement().isDisplayed()) {
+			if (getOptionFromFilterPanel(filter).isAvailable()
+					&& getOptionFromFilterPanel(filter).asWebElement().isDisplayed()) {
 				break;
 			}
 			timePassed = timePassed + delay();
 		}
-		if (getOptionFromFilterPanel(filter).isAvailable() && getOptionFromFilterPanel(filter).asWebElement().isDisplayed()) {
+		if (getOptionFromFilterPanel(filter).isAvailable()
+				&& getOptionFromFilterPanel(filter).asWebElement().isDisplayed()) {
 			getOptionFromFilterPanel(filter).click();
 			getConfirmFilterButton().click();
 		}
@@ -382,7 +385,8 @@ public class BrowsePage extends WebPage<BrowsePage> {
 			assetContainer = assetContainersIterator.next();
 			selectBox = assetSelectBoxesIterator.next();
 			action.moveToElement(assetContainer).build().perform();
-//			System.out.println((i + 1) + ": " + assetContainer.getAttribute("id"));
+			// System.out.println((i + 1) + ": " +
+			// assetContainer.getAttribute("id"));
 			action.moveToElement(selectBox).click().build().perform();
 			i++;
 		}
@@ -393,23 +397,23 @@ public class BrowsePage extends WebPage<BrowsePage> {
 	private boolean waitUntilDownloadActionPanelAppears(int number) {
 		int timePassed = 0;
 		while (timePassed < DEFAULT_TIMEOUT) {
-			if (getSelectedItemsCount().isAvailable() && 
-				getSelectedItemsCount().asWebElement().isDisplayed() && 
-				getSelectedItemsCount().getText().equals("" + number)) {
+			if (getSelectedItemsCount().isAvailable() && getSelectedItemsCount().asWebElement().isDisplayed()
+					&& getSelectedItemsCount().getText().equals("" + number)) {
 				break;
 			}
 			timePassed = timePassed + delay();
 		}
-		if (getSelectedItemsCount().isAvailable() && 
-			getSelectedItemsCount().asWebElement().isDisplayed() &&
-			getSelectedItemsCount().getText().equals("" + number)) {
-				return true;
+		if (getSelectedItemsCount().isAvailable() && getSelectedItemsCount().asWebElement().isDisplayed()
+				&& getSelectedItemsCount().getText().equals("" + number)) {
+			return true;
 		}
 		return false;
 	}
 
 	private CustomElement getSelectedItemsCount() {
-		return new CustomElement(driver, By.xpath("//span[@class='selection-counter' and parent::span[contains(text(), 'items selected')]]"), "Action panel");
+		return new CustomElement(driver,
+				By.xpath("//span[@class='selection-counter' and parent::span[contains(text(), 'items selected')]]"),
+				"Action panel");
 	}
 
 	private List<WebElement> getSelectBoxes() {
@@ -422,10 +426,31 @@ public class BrowsePage extends WebPage<BrowsePage> {
 
 	public void downloadSelectedAssets() {
 		getDownloadButton().click();
+		continueWorking();
+	}
+
+	private void continueWorking() {
+		try {
+			Thread.sleep(WAIT_TIME_TO_CONTINUE_WORKING);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		if (getContinueWorkingButton().isAvailable() && getContinueWorkingButton().asWebElement().isDisplayed()) {
+			getContinueWorkingButton().click();
+		}
+	}
+
+	private Button getContinueWorkingButton() {
+		return new Button(driver,
+				By.xpath(
+						"//input[@type='button' and @value='Continue working' and ancestor::div[starts-with(@class, 'adam-processing-download') and contains(@style, 'visibility: visible;') and contains(@style, 'display: block;')]]"),
+				"Continue working button");
 	}
 
 	private Button getDownloadButton() {
-		return new Button(driver, By.xpath("//div[contains(@class, 'action-download') and contains(text(), 'Download')]"), "Download button");
+		return new Button(driver,
+				By.xpath("//div[contains(@class, 'action-download') and contains(text(), 'Download')]"),
+				"Download button");
 	}
 
 }
