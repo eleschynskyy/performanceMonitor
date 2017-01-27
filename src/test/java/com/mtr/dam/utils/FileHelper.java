@@ -9,6 +9,7 @@ import java.security.SecureRandom;
 
 public class FileHelper {
 
+	private static String dataLocation = ConfigProperties.getSystemProperties("data.location");
 	private static final String AB = "0123456789";
 	private static SecureRandom rnd = new SecureRandom();
 	private static String generatedFilePrefix;
@@ -16,7 +17,8 @@ public class FileHelper {
 	private static long fileSizeKB;
 
 	public static void prepareFiles(String filePrefix, int filesNumber) {
-		File folder = new File("src/main/resources/toUpload/");
+//		File folder = new File("src/main/resources/toUpload/");
+		File folder = new File(dataLocation);
 		File[] listOfFiles = folder.listFiles();
 		for (File file : listOfFiles) {
 			if (file.getName().startsWith(filePrefix + "original")) {
@@ -28,7 +30,7 @@ public class FileHelper {
 				for (int i = 1; i <= filesNumber; i++) {
 					fileName = filePrefix + random + String.format("%03d", i) + fileSuffix;
 					// System.out.println("File " + fileName + " created");
-					File destFile = new File("src/main/resources/toUpload/" + fileName);
+					File destFile = new File(dataLocation + fileName);
 					try {
 						copyFile(file, destFile);
 					} catch (IOException e) {
@@ -42,7 +44,7 @@ public class FileHelper {
 	}
 
 	public static void deleteFiles() {
-		File folder = new File("src/main/resources/toUpload/");
+		File folder = new File(dataLocation);
 		File[] listOfFiles = folder.listFiles();
 		for (File file : listOfFiles) {
 			if (file.getName().startsWith(generatedFilePrefix)) {

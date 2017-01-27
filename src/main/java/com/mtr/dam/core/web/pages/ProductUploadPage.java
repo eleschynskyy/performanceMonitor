@@ -1,5 +1,6 @@
 package com.mtr.dam.core.web.pages;
 
+import com.mtr.dam.utils.ConfigProperties;
 import com.mtr.dam.utils.FileHelper;
 import java.io.File;
 import java.util.List;
@@ -18,6 +19,7 @@ public class ProductUploadPage extends WebPage<ProductUploadPage> {
 	private static final String PAGE_URL = HOST + "/ProductUpload/";
 	private static final int DEFAULT_TIMEOUT = 3600000;
 	private static final int DEFAULT_RETRY_DELAY = 500;
+	private static String dataLocation = ConfigProperties.getSystemProperties("data.location");
 
 	public ProductUploadPage(WebDriver driver, String description) {
 		super(driver, description);
@@ -43,7 +45,7 @@ public class ProductUploadPage extends WebPage<ProductUploadPage> {
 		String fileSuffix = FileHelper.getFileSuffix();
 		for (int i = 1; i <= numberOfFiles; i++) {
 			File file = new File(
-					"src/main/resources/toUpload/" + generatedFilePrefix + String.format("%03d", i) + fileSuffix);
+					dataLocation + generatedFilePrefix + String.format("%03d", i) + fileSuffix);
 //			System.out.println(file.getAbsolutePath());
 			getFileUploadDialog().asWebElement().sendKeys(file.getAbsolutePath());
 			// getFileUploadDialog().asWebElement().sendKeys(file1.getAbsolutePath()

@@ -227,8 +227,6 @@ public class PerformanceMonitorTest extends BaseTest {
 
 	@Test(dataProvider = "provideDataPackage", dataProviderClass = CsvDataProvider.class, enabled = true, invocationCount = 1, threadPoolSize = 1)
 	public void download(DataPackage dataPackage) {
-		// S3Loader loader = S3Loader.getInstance();
-		// System.out.println("loader.download()=" + loader.download());
 		System.out.println("Done");
 	}
 
