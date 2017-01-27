@@ -1,0 +1,1 @@
+Location to store test data downloaded from S3 before the test
