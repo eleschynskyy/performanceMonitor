@@ -70,7 +70,8 @@ public class CsvDataProvider {
 							.setUsername(testData.get("username"))
 							.setPassword(testData.get("password"))
 							.setfilePrefix(testData.get("file_prefix"))
-							.setfilesNumber(testData.get("files_to_upload"));
+							.setfilesNumber(testData.get("files_to_upload"))
+							.setTestCaseNum(testData.get("tc_number"));
 					list.add(new Object[] { dataPackage });
 				}
 			}

@@ -39,7 +39,7 @@ public class BrowsePage extends WebPage<BrowsePage> {
 
 	@Override
 	public boolean isAvailable() {
-		return getMacMenu().isAvailable() && loadEventOccured();
+		return getMacMenu().isAvailable() && getMacMenu().asWebElement().isDisplayed() && loadEventOccured();
 	}
 
 	public boolean showContent() {

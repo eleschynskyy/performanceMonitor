@@ -6,6 +6,7 @@ public class DataPackage {
 	private String password;
 	private String filePrefix;
 	private int filesNumber;
+	private int testCaseNum;
 
 	public DataPackage setUsername(String username) {
 		this.username = username;
@@ -26,6 +27,11 @@ public class DataPackage {
 		this.filesNumber = Integer.parseInt(filesNumber);
 		return this;
 	}
+	
+	public DataPackage setTestCaseNum(String testCaseNum) {
+		this.testCaseNum = Integer.parseInt(testCaseNum);
+		return this;
+	}
 
 	public String getUsername() {
 		return username;
@@ -41,6 +47,10 @@ public class DataPackage {
 	
 	public int getfilesNumber() {
 		return filesNumber;
+	}
+	
+	public int getTestCaseNum() {
+		return testCaseNum;
 	}
 
 	@Override

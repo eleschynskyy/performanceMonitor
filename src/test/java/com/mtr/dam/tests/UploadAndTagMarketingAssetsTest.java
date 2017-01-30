@@ -28,7 +28,7 @@ public class UploadAndTagMarketingAssetsTest extends BaseTest {
 		AssetsPage assetsPage = homePage.navigateToAssetsPage();
 		UploadedFilesPage uploadedFilesPage = assetsPage.navigateToUploadedFilesPage();
 		if (uploadedFilesPage.uploadsCleared()) {
-			FileHelper.prepareFiles(dataPackage.getfilePrefix(), dataPackage.getfilesNumber());
+			FileHelper.prepareFiles(dataPackage.getfilePrefix(), dataPackage.getfilesNumber(), dataPackage.getTestCaseNum());
 			UploadFilesPage uploadFilesPage = uploadedFilesPage.openUploadFilesDialogWindow();
 			startTime = System.currentTimeMillis();
 			uploadedFilesPage = uploadFilesPage.uploadFilesAndReturnToUploadedFilesPage(dataPackage.getfilePrefix(),

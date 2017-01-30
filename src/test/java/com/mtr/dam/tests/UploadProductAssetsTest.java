@@ -19,7 +19,7 @@ public class UploadProductAssetsTest extends BaseTest {
 
 	@Test(dataProvider = "provideDataPackage", dataProviderClass = CsvDataProvider.class, enabled = true, invocationCount = 1, threadPoolSize = 1)
 	public void uploadProductAssets(DataPackage dataPackage) {
-		FileHelper.prepareFiles(dataPackage.getfilePrefix(), dataPackage.getfilesNumber());
+		FileHelper.prepareFiles(dataPackage.getfilePrefix(), dataPackage.getfilesNumber(), dataPackage.getTestCaseNum());
 		LoginPage loginPage = new LoginPage(DriverMaster.getDriverInstance(), "Login page");
 		long startTime = System.currentTimeMillis();
 		HomePage homePage = loginPage.loginAs(dataPackage);

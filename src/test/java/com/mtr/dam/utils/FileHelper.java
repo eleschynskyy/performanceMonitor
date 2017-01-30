@@ -16,12 +16,12 @@ public class FileHelper {
 	private static String fileSuffix;
 	private static long fileSizeKB;
 
-	public static void prepareFiles(String filePrefix, int filesNumber) {
+	public static void prepareFiles(String filePrefix, int filesNumber, int testCaseNum) {
 //		File folder = new File("src/main/resources/toUpload/");
 		File folder = new File(dataLocation);
 		File[] listOfFiles = folder.listFiles();
 		for (File file : listOfFiles) {
-			if (file.getName().startsWith(filePrefix + "original")) {
+			if (file.getName().startsWith(filePrefix + "original_" + testCaseNum)) {
 				String fileName;
 				String random = randomString(9);
 				generatedFilePrefix = filePrefix + random;
