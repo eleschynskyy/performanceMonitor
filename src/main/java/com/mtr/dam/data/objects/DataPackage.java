@@ -55,7 +55,7 @@ public class DataPackage {
 
 	@Override
 	public String toString() {
-		return "Data [username=" + username + ", filePrefix=" + filePrefix + ", filesNumber=" + filesNumber + "]";
+		return "Data [username=" + username + ", filePrefix=" + filePrefix + ", filesNumber=" + filesNumber + ", testCaseNum=" + testCaseNum + "]";
 	}
 
 }
