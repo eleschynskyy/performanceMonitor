@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.security.SecureRandom;
 
+import com.mtr.dam.utils.ConfigProperties;
+
 public class FileHelper {
 
 	private static String dataLocation = ConfigProperties.getSystemProperties("data.location");
