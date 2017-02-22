@@ -7,10 +7,11 @@
 		<parameter name="version" value="" />
 		<parameter name="environment" value="test" />
 		<classes>
-			<class name="com.mtr.dam.tests.UploadProductAssetsTest" />
-			<class name="com.mtr.dam.tests.UploadAndTagMarketingAssetsTest" />
-			<class name="com.mtr.dam.tests.FreeTextAndFacetedSearchTest" />
-			<class name="com.mtr.dam.tests.RefineSearchResultsOnBrowsePageTest" />
+			<class name="com.mtr.dam.tests.ApproveUploadedAssetsByButtonTest" />
+			<!-- <class name="com.mtr.dam.tests.UploadProductAssetsTest" /> <class 
+				name="com.mtr.dam.tests.UploadAndTagMarketingAssetsTest" /> <class name="com.mtr.dam.tests.FreeTextAndFacetedSearchTest" 
+				/> <class name="com.mtr.dam.tests.RefineSearchResultsOnBrowsePageTest" /> -->
+
 		</classes>
 	</test>
 </suite>

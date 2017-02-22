@@ -453,4 +453,77 @@ public class BrowsePage extends WebPage<BrowsePage> {
 				"Download button");
 	}
 
+	public boolean drillDownToWorkInProgress() {
+		getExpandControl("Metro Asset Center").click();
+		waitUntilMenuAppears("Asset Status");
+		getExpandControl("Asset Status").click();
+		waitUntilMenuAppears("Work-In Progress");
+		getExpandControl("Work-In Progress").click();
+		waitUntilMenuAppears("Romania");
+		getExpandControl("Romania").click();
+		waitUntilMenuAppears("WIP_Romania");
+		getMenuControl("WIP_Romania").click();
+		int timePassed = 0;
+		while (timePassed < DEFAULT_TIMEOUT) {
+			if (getFilterBox().isAvailable() && getResultsBox().isAvailable()) {
+				break;
+			}
+			timePassed = timePassed + delay();
+		}
+		if (getFilterBox().isAvailable() && getResultsBox().isAvailable()) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean waitUntilMenuAppears(String menuItem) {
+		int timePassed = 0;
+		while (timePassed < DEFAULT_TIMEOUT) {
+			if (getExpandControl(menuItem).isAvailable() && getExpandControl(menuItem).asWebElement().isDisplayed()) {
+				break;
+			}
+			timePassed = timePassed + delay();
+		}
+		if (getExpandControl(menuItem).isAvailable() && getExpandControl(menuItem).asWebElement().isDisplayed()) {
+			return true;
+		}
+		return false;
+	}
+
+	private Button getExpandControl(String menuItem) {
+		return new Button(driver,
+				By.xpath(
+						"//span[starts-with(@class, 'tree-expand-box') and following-sibling::span[@class='tree-node-label' and contains(text(), '"
+								+ menuItem + "')]]"),
+				"+ " + menuItem);
+	}
+
+	private Button getMenuControl(String menuItem) {
+		return new Button(driver, By.xpath("//span[@class='tree-node-label' and contains(text(), '" + menuItem + "')]"),
+				menuItem);
+	}
+
+	public int selectAllAssets() {
+		int recordsTotal = getResultsTotal();
+		getSelectAllButton().click();
+		waitUntilDownloadActionPanelAppears(recordsTotal);
+		return recordsTotal;
+	}
+
+	private Button getSelectAllButton() {
+		return new Button(driver,
+				By.xpath("//a[ancestor::div[@class='item-count'] and contains(text(), 'Select all')]"),
+				"Select All button");
+	}
+	
+	private int getResultsTotal() {
+		String status = getResultsBox().getText(); 
+		Pattern statusPattern = Pattern.compile("Showing \\d - (\\d+) of (\\d+) record\\(s\\)");
+		Matcher statusMatcher = statusPattern.matcher(status);
+		if (statusMatcher.matches()) { 
+			return Integer.parseInt(statusMatcher.group(2));
+		}
+		return -1; 
+	}
+
 }
